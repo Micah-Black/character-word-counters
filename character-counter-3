@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Character Counter</title>
+  <style>
+   @media {
+    (min-width: 0px) and (max-width: 500px)
+   }
+    * {
+     font-family: Verdana;
+    }
+   .light-mode {
+     background-color: #FFFFFF;
+     font-family: Verdana;
+     color: #000000;
+    }
+    .body-light-mode {
+     background-color: #F2F2F2;
+     font-family: Verdana;
+     color: #000000;
+    }
+    .dark-mode {
+     background-color: #000000;
+     font-family: Verdana;
+     color: #FFFFFF;
+    }
+    .dark-mode-body {
+     background-color: #242424;
+     font-family: Verdana;
+     color: #FFFFFF;
+    }
+    .header-light {
+     background-color: #008000;
+     font-family: Verdana;
+     color: #FFFFFF;
+     margin-top: 0;
+     width: 100%;
+    }
+     .header-dark {
+     background-color: #22A622;
+     font-family: Verdana;
+     color: #FFFFFF;
+     margin-top: 0;
+     width: 100%;
+     }
+    td {
+     width: 5%;
+    }
+   .slider {
+    margin-top: -25%;
+    margin-left: 80%;
+   }
+   .logo {
+    margin-right: 80%;
+   }
+   .dark-light {
+     width: 25px;
+     cursor: pointer;
+   }
+   textarea {
+    height: 200%;
+    padding: 30px;
+    font-size: 16px;
+    width: 75%;
+    }
+   .results {
+     text-align: center;
+   }
+   .titleDesc {
+     cursor: pointer;
+    }
+  button {
+    display: flexbox;
+    margin-left: 60%;
+    cursor: pointer
+  }
+  </style>
+  <script>
+  function showResults(){
+   var typedText = document.getElementById("typeText").value;
+   var titleMode = document.getElementById("Title-Option").checked;
+   var descMode = document.getElementById("Desc-Option").checked;
+//Display characters in title mode
+   if(titleMode==1){
+     if(typedText.length < 70){
+      results.innerHTML = "<span>" + typedText.length + "</span>"
+      }
+     if(typedText.length >= 70){
+     results.innerHTML = "<span style='background-color: #F10000;'> " + typedText.length + " </span>"
+    }
+   }
+//Display number words in description mode
+   if(descMode==1){
+    typedText = typedText.replaceAll('\n', " ");
+    var numWords = 0;
+        if (typedText == "") {
+            numWords = 0;
+        } else if ((typedText.substring(typedText.length - 1, typedText.length) == "?") || (typedText.substring(typedText.length - 1, typedText.length) == "!") || (typedText.substring(typedText.length - 1, typedText.length) == " ") || (typedText.substring(typedText.length - 1, typedText.length) == ".")) {
+            numWords = typedText.replaceAll(/(\.|!|\?| )+|(\.|!|\?| )+$|(\.|!|\?| )+/g, "#").split("#").length - 1;
+        } else {
+            numWords = typedText.replaceAll(/(\.|!|\?| )+|(\.|!|\?| )+$|(\.|!|\?| )+/g, "#").split("#").length;
+        }
+   if(numWords < 250){
+    results.innerHTML = "<span>" + numWords + "</span>";
+    }
+   if(numWords >= 250){
+    results.innerHTML = "<span style='background-color: #F10000;'> " + numWords + " </span>";
+   }
+  }
+ }
+  function clearText(){
+   document.getElementById("typeText").value = ""
+   results.innerHTML = "<span>0</span>"
+    }
+  function colorChange(){
+    var changeSwitch = document.getElementById("dark-light").value;
+    var main = document.body;
+    var titleText = document.getElementById("typeText");
+    var header = document.getElementById("header");
+    if(changeSwitch==0){
+     main.className = "body-light-mode"
+     titleText.className = "light-mode"
+     header.className = "header-light"
+    }
+    if(changeSwitch==1){
+     main.className = "dark-mode-body"
+     titleText.className = "dark-mode"
+     header.className = "header-dark"
+    }
+  }
+  function TitleDesc() {
+   var titleMode = document.getElementById("Title-Option").checked;
+   var descMode = document.getElementById("Desc-Option").checked;
+   var textBox = document.getElementById("textBox");
+   var prodDesc = document.getElementById("prodDesc");
+   var countElement = document.getElementById("countElement");
+   var changeSwitch = document.getElementById("dark-light").value;
+   var currentText = document.getElementById("typeText").value;
+   if(descMode==1){
+     if(changeSwitch==0){
+      textBox.innerHTML = "<textarea class='light-mode' id='typeText' maxlength='100000' onkeyup='showResults()' style='height: 394px; width: 1099px;'></textarea>";
+      document.getElementById("typeText").value = currentText
+      }
+      if(changeSwitch==1){
+       textBox.innerHTML = "<textarea class='dark-mode' id='typeText' maxlength='100000' onkeyup='showResults()' style='height: 394px; width: 1099px;'></textarea>";
+        document.getElementById("typeText").value = currentText
+      }
+     prodDesc.innerHTML = "<span><h1 align=center>Enter Product Description:</h1></span>";
+     countElement.innerHTML = "Word Count: ";
+     showResults();
+    }
+   if(titleMode==1){
+     if(changeSwitch==0){
+      textBox.innerHTML = "<textarea class='light-mode' id='typeText' maxlength='100' onkeyup='showResults()' style='height: calc(100% - 180px);'></textarea>";
+       document.getElementById("typeText").value = currentText
+     }
+     if(changeSwitch==1){
+      textBox.innerHTML = "<textarea class='dark-mode' id='typeText' maxlength='100' onkeyup='showResults()' style='height: calc(100% - 180px);'></textarea>";
+      document.getElementById("typeText").value = currentText
+      }
+     prodDesc.innerHTML = "<span><h1 align=center>Enter Product Title:</h1></span>";
+     countElement.innerHTML = "Character Count: ";
+     showResults();
+   }
+  }
+  </script>
+ </head>
+ <body class="body-light-mode">
+  <header class="header-light" id="header">
+<table><tr><td>
+<img class="logo" alt="Mardel Logo" src="https://imgprd19.mardel.com/sys-master/images/hfe/h47/h00/9048418156574/original_mardel_logo_m_HR.png" height=58 width=250></td><td></td>
+<td>Title: <input type="radio" class="titleDesc" id="Title-Option" name="title-desc" checked="True" onchange="TitleDesc()"> Description: <input type="radio" class="titleDesc" id="Desc-Option" name="title-desc" onchange="TitleDesc()"></td>
+<td class="slider"><span class="light-text">Light Mode</span> <input type="range" value=0 min=0 max=1 class="dark-light" id="dark-light" onchange="colorChange()"></input> <span id="dark-text">Dark Mode</span></td></tr></table>
+  </header>
+  <span id="prodDesc"><h1 align=center>Enter Product Title:</h1></span>
+  <div align=center id="textBox">
+  <textarea id="typeText" maxlength="100" onkeyup="showResults()" style="height: calc(100% - 180px);"></textarea>
+   </div>
+   <p align=center><span id="countElement">Character Count: </span><span class="results" id="results"></span><span id="clear"><button onclick=clearText()>Clear</button></p>
+ </body>
+ </html>
