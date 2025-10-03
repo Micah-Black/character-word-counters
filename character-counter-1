@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Character Counter</title>
+  <style>
+   @media {
+    (min-width: 0px) and (max-width: 500px)
+   }
+    * {
+     font-family: Verdana;
+    }
+   .light-mode {
+     background-color: #FFFFFF;
+     font-family: Verdana;
+     color: #000000;
+    }
+    .body-light-mode {
+     background-color: #F2F2F2;
+     font-family: Verdana;
+     color: #000000;
+    }
+    .dark-mode {
+     background-color: #000000;
+     font-family: Verdana;
+     color: #FFFFFF;
+    }
+    .dark-mode-body {
+     background-color: #242424;
+     font-family: Verdana;
+     color: #FFFFFF;
+    }
+    .header-light {
+     background-color: #22B622;
+     font-family: Verdana;
+     color: #2F2F2F;
+     margin-top: 0;
+    }
+     .header-dark {
+     background-color: #22A622;
+     font-family: Verdana;
+     color: #FFFFFF;
+     margin-top: 0;
+     }
+    td {
+     width: 10%;
+    }
+   .slider {
+    margin-top: -25%;
+    margin-left: 80%;
+   }
+   .logo {
+    margin-right: 80%;
+   }
+   .dark-light {
+     width: 25px;
+     cursor: pointer;
+   }
+   textarea {
+    height: 200%;
+    padding: 30px;
+    font-size: 16px;
+    width: 75%;
+    }
+   .results {
+     text-align: center;
+   }
+  button {
+    display: flexbox;
+    margin-left: 60%;
+    cursor: pointer
+  }
+  </style>
+  <script>
+  function showResults(){
+   var titleText = document.getElementById("title").value
+   if(titleText.length < 70){
+   results.innerHTML = "<span>" + titleText.length + "</span>"
+    }
+   if(titleText.length >= 70){
+   results.innerHTML = "<span style='background-color: #F10000;'> " + titleText.length + " </span>"
+   }
+  }
+  function clearText(){
+   document.getElementById("title").value = ""
+   results.innerHTML = "<span>0</span>"
+  }
+  function colorChange(){
+    var changeSwitch = document.getElementById("dark-light").value;
+    var main = document.body;
+    var titleText = document.getElementById("title");
+    var header = document.getElementById("header");
+    if(changeSwitch==0){
+     main.className = "body-light-mode"
+     titleText.className = "light-mode"
+     header.className = "header-light"
+    }
+    if(changeSwitch==1){
+     main.className = "dark-mode-body"
+     titleText.className = "dark-mode"
+     header.className = "header-dark"
+    }
+  }
+  </script>
+ </head>
+ <body class="body-light-mode">
+  <header class="header-light" id="header">
+<table><tr><td>
+<img class="Logo" alt="Mardel Logo" src="https://cdn.media.amplience.net/i/mardel/test-logo" height=58 width=250></td><td></td>
+  <td class="slider"><span class="light-text">Light Mode</span> <input type="range" value=0 min=0 max=1 class="dark-light" id="dark-light" onchange="colorChange()"></input> <span id="dark-text">Dark Mode</span></td></tr></table>
+  </header>
+  <h1 align=center>Enter Product Title:</h1>
+  <div align=center>
+  <textarea id="title" maxlength="100" onkeyup="showResults()" style="height: calc(100% - 180px);"></textarea>
+   </div>
+   <p align=center>Character Count: <span class="results" id="results"></span><span id="clear"><button onclick=clearText()>Clear</button></p>
+ </body>
+ </html>
